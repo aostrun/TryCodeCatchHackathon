@@ -4,4 +4,16 @@ from .models import User
 
 # Register your models here.
 
-admin.site.register(User, UserAdmin)
+class CustomUserInline(admin.StackedInline):
+    model = User
+
+
+class CustomUserAdmin(UserAdmin):
+
+    fieldsets = UserAdmin.fieldsets + ( ('Location', {'fields': ('location_lat', 'location_lon', 'distance', )}),
+                                        ('Gender', {'fields': ('sex',)}),
+                                        ('Blood', {'fields': ('blood_type', 'last_donation')}),
+
+                                        )
+
+admin.site.register(User, CustomUserAdmin)

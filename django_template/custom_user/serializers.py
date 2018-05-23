@@ -18,5 +18,7 @@ class CustomRegisterSerializer(RegisterSerializer):
             'password1': self.validated_data.get('password1', ''),
             'email': self.validated_data.get('email', ''),
             'first_name': self.validated_data.get('first_name', ''),
-            'last_name': self.validated_data.get('last_name', '')
+            'last_name': self.validated_data.get('last_name', ''),
+            'location_lat': self.location_lat,
+            'location_lon': self.location_lon,
         }
