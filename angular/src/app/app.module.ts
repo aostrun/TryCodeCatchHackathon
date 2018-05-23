@@ -3,10 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-<<<<<<< HEAD
-=======
-
->>>>>>> 3d2f6e91e7d314bf53a6cdb05ae9526da936a0fc
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
 
@@ -27,12 +23,8 @@ import { RegisterComponent } from './register';
         BrowserAnimationsModule,
         ReactiveFormsModule,
         HttpClientModule,
-<<<<<<< HEAD
         routing,
 
-=======
-        routing
->>>>>>> 3d2f6e91e7d314bf53a6cdb05ae9526da936a0fc
     ],
     declarations: [
         AppComponent,

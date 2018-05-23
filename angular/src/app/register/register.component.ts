@@ -31,14 +31,14 @@ export class RegisterComponent implements OnInit {
         };
         let map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
         var marker;
-
+        var self = this;
          map.addListener('click', function(e) {
             var str = placeMarkerAndPanTo(e.latLng, map);
             
             var stra = str.split("-");
             
-            this.lat= stra[0];
-            this.long = stra[1];
+            self.lat= stra[0];
+            self.long = stra[1];
 
           });
 
@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
           }
 
         this.makeMessage("Join us");
-
+          /*
         this.registerForm = this.formBuilder.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -73,9 +73,26 @@ export class RegisterComponent implements OnInit {
             number: ['', Validators.required],
             date: ['', Validators.required],
             sex: ['', Validators.required],
-            adress: ['', Validators.required]
+            location_lat: [''],
+            location_lon: [''],
+            blood_type:['']
         },{
             validator: [PasswordValidation.MatchPassword,NumberValidation.Number] //confirm password same as password
+        });
+        */
+        this.registerForm = this.formBuilder.group({
+            first_name: ['', ],
+            last_name: ['', ],
+            username: ['', ],
+            email: ['', ],
+            password1: ['', ],
+            password2: ['', ],
+            number: ['', ],
+            date: ['', ],
+            sex: ['', ],
+            location_lat: [''],
+            location_lon: [''],
+            blood_type:['']
         });
     }
 
@@ -86,7 +103,11 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        console.log(this.lat);
+        this.registerForm.value.location_lat = this.lat;
+        this.registerForm.value.location_lon = this.long;
 
+        
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
