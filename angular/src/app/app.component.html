@@ -1,0 +1,23 @@
+﻿<!-- main app container -->
+<!--
+<div id="particles-js"></div>
+<div class="jumbotron vertical-center" >
+    <div class="container" >
+        <div class="row">
+            <div class="col">
+                <alert></alert>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+        <div id="particles-js"></div>
+        <div class="jumbotron vertical-center" >
+            <div class="container" >
+                        <router-outlet #o="outlet"></router-outlet>
+            </div>
+        </div>
+    
+</main>
