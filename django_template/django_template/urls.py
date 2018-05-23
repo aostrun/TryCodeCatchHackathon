@@ -33,6 +33,7 @@ urlpatterns = [
 urlpatterns += [
     url(r'api/blood_sample/', include('blood_sample.urls')),
     url(r'api/comment/', include('comment.urls')),
+    url(r'api/blood_collection/', include('blood_collection.urls')),
     url(r'api/message/', include('message.urls')),
     url(r'^verify-email', VerifyEmailView.as_view(), name='verify_email'),
     url(r'^account-confirm-email/(?P<key>[-:\w]+)/$', TemplateView.as_view(),
