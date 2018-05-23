@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.gis.db import models
 
 
 
@@ -23,3 +24,9 @@ class User(AbstractUser):
     sex = models.CharField(choices=SEX_CHOICES)
 
     date_of_birth = models.DateField()
+
+    location = models.PointField()
+
+    last_donation = models.DateTimeField()
+    
+    distance = models.FloatField()
