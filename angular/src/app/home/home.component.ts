@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         var options = {
-            strings: ["Dobrodošao, upali na <a href='http://onlineradiobox.com/hr/extra936/'>ExtraFM </a> :)"],
+            strings: ["Dobrodošao, ime  i prezime"],
             typeSpeed: 40
           }
           

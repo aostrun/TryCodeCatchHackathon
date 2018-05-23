@@ -16,4 +16,4 @@ class Comment(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.comment_body
+        return self.comment_body +" user id: " +str(self.user_id.id )
