@@ -14,6 +14,8 @@ export class RegisterComponent implements OnInit {
     loading = false;
     submitted = false;
     typed: any;
+    lat: any;
+    long: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -22,13 +24,42 @@ export class RegisterComponent implements OnInit {
         private alertService: AlertService) { }
 
     ngOnInit() {
-
         let mapProp = {
-            center: new google.maps.LatLng(51.508742, -0.120850),
-            zoom: 5,
+            center: new google.maps.LatLng(45.815399, 15.966568),
+            zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         let map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        var marker;
+
+         map.addListener('click', function(e) {
+            var str = placeMarkerAndPanTo(e.latLng, map);
+            
+            var stra = str.split("-");
+            
+            this.lat= stra[0];
+            this.long = stra[1];
+
+          });
+
+        function placeMarkerAndPanTo(latLng, map) {
+            if (marker != undefined){
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+              position: latLng,
+              map: map
+            });
+            var ll = JSON.stringify(latLng);
+            var ll2 = JSON.parse(ll);
+
+            var lat = ll2.lat;
+            var long = ll2.lng;
+            
+            map.panTo(latLng);
+            var str = ""+lat+"-"+""+long;
+            return str;
+          }
 
         this.makeMessage("Join us");
 
@@ -41,7 +72,8 @@ export class RegisterComponent implements OnInit {
             password2: ['', [Validators.required, Validators.minLength(8)]],
             number: ['', Validators.required],
             date: ['', Validators.required],
-            sex: ['', Validators.required]
+            sex: ['', Validators.required],
+            adress: ['', Validators.required]
         },{
             validator: [PasswordValidation.MatchPassword,NumberValidation.Number] //confirm password same as password
         });
@@ -50,6 +82,8 @@ export class RegisterComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
+
+
     onSubmit() {
         this.submitted = true;
 
@@ -57,7 +91,7 @@ export class RegisterComponent implements OnInit {
         if (this.registerForm.invalid) {
             return;
         }
-
+        console.log(this.registerForm.value);
         this.loading = true;
         this.userService.create(this.registerForm.value)
             .pipe(first())
@@ -93,6 +127,8 @@ export class RegisterComponent implements OnInit {
           showCursor: false
         });
     }
+
+
 
 
   
