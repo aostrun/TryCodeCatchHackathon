@@ -13,11 +13,12 @@
 </div>
 -->
 <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
-        <div id="particles-js"></div>
+        <div id="particles-js">
         <div class="jumbotron vertical-center" >
             <div class="container-fluid" >
                         <router-outlet #o="outlet"></router-outlet>
             </div>
+        </div>
         </div>
     
 </main>
