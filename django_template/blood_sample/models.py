@@ -13,3 +13,6 @@ class BloodSample(models.Model):
     volume = models.FloatField(default=1.0)
 
     event = models.ForeignKey(BloodCollection, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.user.username + ": " + self.event.name + ": " + str(self.volume)

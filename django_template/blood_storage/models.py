@@ -12,6 +12,9 @@ class BloodStorage(models.Model):
     location_lon = models.FloatField(null=True)
     location_lat = models.FloatField(null=True)
 
+    def __str__(self):
+        return self.name
+
 
 
 
@@ -39,4 +42,7 @@ class BloodStorageItem(models.Model):
 
     storage = models.ForeignKey(BloodStorage, on_delete=models.CASCADE)
 
+
+    def __str__(self):
+        return self.storage.name + ": " + self.blood_type + " - " + str(self.volume)
 

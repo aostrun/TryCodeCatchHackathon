@@ -18,5 +18,11 @@ class BloodCollection(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
+    location_lat = models.FloatField()
+    location_lon = models.FloatField()
+
     storage = models.ForeignKey(BloodStorage, on_delete=models.DO_NOTHING)
 
+
+    def __str__(self):
+        return self.name + " " + str(self.start_time) + ": " + self.storage.name
