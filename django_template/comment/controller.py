@@ -45,15 +45,11 @@ def get_user_comments(request, user_id=None):
     :return:
     """
     if request.method == "GET":
-
         print(user_id)
         comments = Comment.objects.all().filter(user_id_id = user_id )
-        #  print(comments)
-        serializer = CommentSerializer(data=comments, many=True)
-        # serializer.validate()
-        # print(serializer.validated_data)
-        # if serializer.is_valid():
-        return Response(serializer.initial_data, status=status.HTTP_200_OK)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print(comments)
+        serializer = CommentSerializer(comments, many=True, context={'request':request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
