@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.gis.db import models
 
 
 
@@ -20,7 +19,7 @@ class User(AbstractUser):
         ("AB+", "AB+")
         #---
     )
-    blood_type = models.CharField(max=3, choices=BLOOD_TYPE_CHOICES)
+    blood_type = models.CharField( choices=BLOOD_TYPE_CHOICES)
 
     phone_number = models.CharField(max_length=14)
 
@@ -34,7 +33,8 @@ class User(AbstractUser):
 
     date_of_birth = models.DateField()
 
-    location = models.PointField()
+    location_lat = models.FloatField()
+    location_lon = models.FloatField()
 
     last_donation = models.DateTimeField()
     
