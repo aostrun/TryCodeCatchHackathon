@@ -49,7 +49,7 @@
   }
 
 .form-control{
-    width: 600px;
+    width: 100%;
 }
 
 router-outlet ~ * {

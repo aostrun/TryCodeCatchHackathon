@@ -29,9 +29,10 @@ export class RegisterComponent implements OnInit {
             username: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             password1: ['', [Validators.required, Validators.minLength(8)]],
-            password2: ['', [Validators.required, Validators.minLength(8)]]
+            password2: ['', [Validators.required, Validators.minLength(8)]],
+            number: ['', Validators.required]
         },{
-            validator: PasswordValidation.MatchPassword //confirm password same as password
+            validator: [PasswordValidation.MatchPassword,NumberValidation.MatchPassword] //confirm password same as password
         });
     }
 
@@ -88,6 +89,18 @@ export class PasswordValidation {
        let confirmPassword = AC.get('password2').value; // to get value in input tag
         if(password != confirmPassword) {
             AC.get('password2').setErrors( {MatchPassword: true} )
+        } else {
+            return null
+        }
+    }
+}
+
+export class NumberValidation {
+
+    static MatchPassword(AC: AbstractControl) {
+       let number = AC.get('number').value; // to get value in input tag
+        if(isNaN(number)) {
+            AC.get('number').setErrors( {WronNumber: true} )
         } else {
             return null
         }
