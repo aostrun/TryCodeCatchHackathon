@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.2",
     "@angular/animations": "^6.0.2",
     "@angular/common": "^6.0.2",
     "@angular/compiler": "^6.0.2",
@@ -20,7 +21,12 @@
     "@angular/platform-browser": "^6.0.2",
     "@angular/platform-browser-dynamic": "^6.0.2",
     "@angular/router": "^6.0.2",
+    "angular-bootstrap-datetimepicker": "^2.2.1",
+    "angular2-openlayers": "^0.6.8",
+    "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
+    "moment": "^2.22.1",
+    "open-iconic": "^1.1.1",
     "rxjs": "^6.0.0",
     "typed.js": "^2.0.6",
     "zone.js": "^0.8.26"

@@ -47,6 +47,26 @@
     </div>
     </div>
 </div>
+<div class="form-group row">
+    <div class="col">
+            <label for="date">DOB</label>
+            <input type="date" formControlName="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.number.errors }"/>
+            <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                <div *ngIf="f.date.errors.required">Date of birth is required</div>
+            </div>
+        
+    </div>
+</div>
+<div class="form-group row">
+        <div class="col">
+                <label for="sex">Sex</label>
+                <input type="text" formControlName="sex" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sex.errors }"/>
+                <div *ngIf="submitted && f.sex.errors" class="invalid-feedback">
+                    <div *ngIf="f.sex.errors.required">Sex is required</div>
+                </div>
+            
+        </div>
+    </div>
     <div class="form-group row">
             <div class="col">
         <label for="password1">Password</label>
@@ -75,3 +95,5 @@
             </div>
     </div>
 </form>
+<script src="http://maps.googleapis.com/maps/api/js?key=[AIzaSyBn1-Ll2hKX-EFe_j5DD5wkQoUm_z41DlY]"></script>
+<div id="googleMap" style="width:500px;height:380px;"></div>

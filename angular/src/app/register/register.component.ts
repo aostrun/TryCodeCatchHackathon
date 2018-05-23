@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { AlertService, UserService } from '../_services';
 import * as Typed from "typed.js"
 
+declare const google: any;
+
 @Component({templateUrl: 'register.component.html'
 })
 export class RegisterComponent implements OnInit {
@@ -21,6 +23,13 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
 
+        let mapProp = {
+            center: new google.maps.LatLng(51.508742, -0.120850),
+            zoom: 5,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        let map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
         this.makeMessage("Join us");
 
         this.registerForm = this.formBuilder.group({
@@ -30,9 +39,11 @@ export class RegisterComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password1: ['', [Validators.required, Validators.minLength(8)]],
             password2: ['', [Validators.required, Validators.minLength(8)]],
-            number: ['', Validators.required]
+            number: ['', Validators.required],
+            date: ['', Validators.required],
+            sex: ['', Validators.required]
         },{
-            validator: [PasswordValidation.MatchPassword,NumberValidation.MatchPassword] //confirm password same as password
+            validator: [PasswordValidation.MatchPassword,NumberValidation.Number] //confirm password same as password
         });
     }
 
@@ -61,6 +72,8 @@ export class RegisterComponent implements OnInit {
                 });
     }
 
+
+
     makeMessage(newTexts: String){
           
         const dataType = newTexts;   // 
@@ -80,6 +93,9 @@ export class RegisterComponent implements OnInit {
           showCursor: false
         });
     }
+
+
+  
 }
 
 export class PasswordValidation {
@@ -97,7 +113,7 @@ export class PasswordValidation {
 
 export class NumberValidation {
 
-    static MatchPassword(AC: AbstractControl) {
+    static Number(AC: AbstractControl) {
        let number = AC.get('number').value; // to get value in input tag
         if(isNaN(number)) {
             AC.get('number').setErrors( {WronNumber: true} )
@@ -105,4 +121,8 @@ export class NumberValidation {
             return null
         }
     }
+
+ 
+
+
 }
