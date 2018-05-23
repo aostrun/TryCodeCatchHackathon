@@ -31,3 +31,29 @@ def post_user_message(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_user_messages(request, message_to_user=None):
+    """
+    vraća sve poruke koje su poslane useru
+    :param request:
+    :return:
+    """
+    if request.method == "GET":
+        messages = Message.objects.all().filter(message_to_user_id = message_to_user )
+        serializer = MessageSerializer(messages, many=True, context={'request':request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_user_unread_messages(request, message_to_user=None):
+    """
+    vraća sve nepročitane poruke za usera
+    :param request:
+    :return:
+    """
+    if request.method == "GET":
+        messages = Message.objects.all().filter(message_to_user_id = message_to_user, is_read=False)
+        serializer = MessageSerializer(messages, many=True, context={'request':request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
