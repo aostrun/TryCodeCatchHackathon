@@ -38,6 +38,6 @@ class User(AbstractUser):
 
     last_donation = models.DateTimeField(null=True)
 
-    days_past = models.IntegerField(null=True)
+    #days_past = models.IntegerField(null=True)
 
     distance = models.FloatField(null=True)
