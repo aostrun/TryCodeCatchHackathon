@@ -7,19 +7,27 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
 
+    #blood type choices
     BLOOD_TYPE_CHOICES = (
         ("0-", "0-"),
+        ("0+", "0+"),
+        ("A-", "A-"),
+        ("A+", "A+"),
+        ("B-", "B-"),
+        ("B+", "B+"),
+        ("AB-", "AB-"),
+        ("AB+", "AB+")
         #---
     )
     blood_type = models.CharField(max=3, choices=BLOOD_TYPE_CHOICES)
 
-    score = models.IntegerField(default=0)
     phone_number = models.CharField(max_length=14)
 
+    #sex choices
     SEX_CHOICES = (
-        ("M", "M")
+        ("M", "Male"),
+        ("F", "Female")
         #---
     )
     sex = models.CharField(choices=SEX_CHOICES)
-
     date_of_birth = models.DateField()
