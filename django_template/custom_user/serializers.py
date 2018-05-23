@@ -11,6 +11,9 @@ class CustomRegisterSerializer(RegisterSerializer):
     first_name = serializers.CharField()
     last_name = serializers.CharField()
 
+    location_lat = serializers.FloatField()
+    location_lon = serializers.FloatField()
+
     def get_cleaned_data(self):
         super(CustomRegisterSerializer, self).get_cleaned_data()
         return {
@@ -19,6 +22,12 @@ class CustomRegisterSerializer(RegisterSerializer):
             'email': self.validated_data.get('email', ''),
             'first_name': self.validated_data.get('first_name', ''),
             'last_name': self.validated_data.get('last_name', ''),
-            'location_lat': self.location_lat,
-            'location_lon': self.location_lon,
         }
+
+    def custom_signup(self, request, user):
+        print(request.POST.get('location_lat'))
+        user.location_lat = float(request.POST.get('location_lat'))
+        user.location_lon = float(request.POST.get('location_lon'))
+        user.blood_type = request.POST.get('blood_type')
+        user.sex = request.POST.get('sex')
+        user.save()

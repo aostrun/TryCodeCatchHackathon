@@ -37,5 +37,7 @@ class User(AbstractUser):
     location_lon = models.FloatField(null=True)
 
     last_donation = models.DateTimeField(null=True)
-    
+
+    days_past = models.IntegerField(null=True)
+
     distance = models.FloatField(null=True)
