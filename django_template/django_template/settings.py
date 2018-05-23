@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'django_template',
     'custom_user',
+    'comment',
     'corsheaders',
     'allauth',
     'allauth.account',
