@@ -4,21 +4,18 @@ from rest_framework.views import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.core.exceptions import ObjectDoesNotExist
-from comment.models import Comment
-from comment.serializers import CommentSerializer
+from message.models import Message
+from message.serializers import MessageSerializer
 
 """
-
-kontroler za komentare
-
+kontroler za poruke
 """
-
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
-def post_user_comment(request):
+def post_user_message(request):
     """
-    post ->  dodaje komentar za odredenog usera
+    post ->  dodaje poruku za odredenog usera od usera
     :param request:
     :return:
     """
@@ -29,31 +26,8 @@ def post_user_comment(request):
         # comment.save()
         # return Response(comment, status=status.HTTP_201_CREATED)
         #
-        serializer = CommentSerializer(data=request.data)
+        serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET'])
-@permission_classes((IsAuthenticated,))
-def get_user_comments(request, user_id=None):
-    """
-    vraća sve komentare za usera
-    :param request:
-    :return:
-    """
-    if request.method == "GET":
-
-        print(user_id)
-        comments = Comment.objects.all().filter(user_id_id = user_id )
-        #  print(comments)
-        serializer = CommentSerializer(data=comments, many=True)
-        # serializer.validate()
-        # print(serializer.validated_data)
-        # if serializer.is_valid():
-        return Response(serializer.initial_data, status=status.HTTP_200_OK)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-

@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from comment.controller import post_user_comment
+from comment.controller import post_user_comment, get_user_comments
 
 
 urlpatterns = [
-    url(r'^comment/$', post_user_comment),
+    url(r'^add/$', post_user_comment),
+    url(r'^get/(?P<user_id>\w+)$', get_user_comments),
+    # url(r'^comment/get/$', get_user_comment),
 
 ]
