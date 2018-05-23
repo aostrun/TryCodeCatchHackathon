@@ -1,6 +1,5 @@
 from django.db import models
 from custom_user.models import  User
-from custom_user.models import User
 
 # Create your models here.
 
@@ -12,13 +11,13 @@ class Message(models.Model):
     # body poruke
     message_body = models.CharField(max_length=200)
     # od koga je poruka poslana
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message_from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="message_from_user")
     # kome se salje
-    to_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message_to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="message_to_user")
     # da li je user procito poruku
     is_read = models.BooleanField()
 
     def __str__(self):
-        return "message from:" + self.from_user + " to: " + self.to_user + ". Message:" +self.message_body
+        return "message from:" + str(self.message_from_user.id) + " to: " + str(self.message_to_user.id) + ". Message:" +self.message_body
 
 

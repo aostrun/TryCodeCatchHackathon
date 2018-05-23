@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_template',
     'custom_user',
     'comment',
+    'message',
     'corsheaders',
     'allauth',
     'allauth.account',
