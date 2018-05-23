@@ -25,7 +25,7 @@
 
 .jumbotron{
     background: rgba(255,0,0,0);
-
+    width: 50%;
 }
 
 .btn-primary, .btn-primary:active, .btn-primary:visited {
