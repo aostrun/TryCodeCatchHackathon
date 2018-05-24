@@ -8,7 +8,7 @@ from custom_user.models import User
 @permission_classes((IsAuthenticated,))
 def get_user_details(request):
     """
-    vraća sve blood collection eventove prema storageu
+    vraća detalje usera
     :param request:
     :param storage:
     :return:
@@ -18,11 +18,27 @@ def get_user_details(request):
     user_id = request.user.id
     user_details["user_id"] = user_id
     user = User.objects.get(pk = user_id)
-    print(user)
     user_details["first_name"] = user.first_name
     user_details["last_name"] = user.last_name
     user_details["blood_type"] = user.blood_type
     user_details["sex"] = user.sex
-
     return Response(user_details, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def change_blood_type(request):
+    """
+    mijenjanje krvne grupe za usera
+    :param request:
+    :return:
+    """
+
+    if request.method == "POST":
+        user = User.objects.get(pk=request.user.id)
+        blood_type = request.POST.get("blood_type")
+        user.blood_type = blood_type
+        user.save()
+        return Response(status=status.HTTP_200_OK)
+
 
