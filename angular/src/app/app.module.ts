@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
+import { QRCodeModule } from 'angular2-qrcode';
 
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
@@ -15,7 +16,9 @@ import { JwtInterceptor } from './_helpers';
 import { AlertService, AuthenticationService, UserService } from './_services';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
-import { RegisterComponent } from './register';
+import { RegisterComponent } from './register';;
+import { EventComponent } from './event/event.component'
+import { EventService } from './_services/event.service';
 
 @NgModule({
     imports: [
@@ -24,6 +27,7 @@ import { RegisterComponent } from './register';
         ReactiveFormsModule,
         HttpClientModule,
         routing,
+        QRCodeModule,
 
     ],
     declarations: [
@@ -32,7 +36,8 @@ import { RegisterComponent } from './register';
         HomeComponent,
         LoginComponent,
         RegisterComponent
-    ],
+,
+        EventComponent    ],
     providers: [
         AuthGuard,
         AlertService,
@@ -43,6 +48,7 @@ import { RegisterComponent } from './register';
             useClass: JwtInterceptor,
             multi: true
         },
+        EventService
 
         // provider used to create fake backend
         //fakeBackendProvider

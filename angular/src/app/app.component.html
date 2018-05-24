@@ -12,13 +12,15 @@
     </div>
 </div>
 -->
-<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
-        <div id="particles-js">
-        <div class="jumbotron vertical-center" >
-            <div class="container-fluid" >
-                        <router-outlet #o="outlet"></router-outlet>
+
+<div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                   
+                </div>
             </div>
         </div>
-        </div>
-    
-</main>
+</div>
+
+<router-outlet></router-outlet>

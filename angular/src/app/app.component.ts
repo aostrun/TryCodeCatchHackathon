@@ -1,5 +1,7 @@
 ﻿import { Component,OnInit } from '@angular/core';
 import { fadeAnimation } from './_animations/fade-in.animation';
+import { Router} from '@angular/router';
+import { HomeComponent} from './home/home.component';
 import {
     transition,
     trigger,
@@ -9,7 +11,6 @@ import {
     group,
     animateChild,sequence
   } from '@angular/animations';
-declare var particlesJS: any;
 
 @Component({
     selector: 'app',
@@ -18,12 +19,11 @@ declare var particlesJS: any;
     animations: [fadeAnimation] // register the animation
 })
 
-export class AppComponent implements OnInit{
-    ngOnInit() {
-        particlesJS.load('particles-js', '../../assets/particles.json', function() {
-            console.log('callback - particles.js config loaded');
-          });
-    }
+export class AppComponent{
+    
+
+    
+
 
     
  }

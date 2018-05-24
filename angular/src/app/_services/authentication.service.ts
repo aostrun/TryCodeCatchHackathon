@@ -27,8 +27,7 @@ export class AuthenticationService {
              // remove user from local storage to log user out
                 return this.http.post<any>(apiUrl+'/rest-auth/logout/', { key : user.key})
                 .pipe(map(a => {
-                    localStorage.removeItem('currentUser');
-                    
+                    localStorage.removeItem('currentUser');   
                 }));
         }
        
