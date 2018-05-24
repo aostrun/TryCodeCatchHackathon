@@ -24,6 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
     "angular-bootstrap-datetimepicker": "^2.2.1",
     "angular2-openlayers": "^0.6.8",
+    "angular2-qrcode": "^2.0.1",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "moment": "^2.22.1",
