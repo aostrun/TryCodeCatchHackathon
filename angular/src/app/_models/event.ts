@@ -12,6 +12,7 @@ export class Storage{
 }
 
 export class Message{
+    id:number;
     message_from_user: number;
     message_to_user: number;
     message_body: string;

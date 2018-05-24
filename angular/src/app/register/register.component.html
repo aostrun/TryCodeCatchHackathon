@@ -1,7 +1,7 @@
 
 <div class="containter-fluid">
         <h2><span id="register_text"></span></h2>
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" style="position:absolute;" >
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
             <div class="form-group row">
                 <div class="col-sm-4">
                     <label for="first_name">First Name</label>
@@ -75,13 +75,37 @@
                                         <div *ngIf="f.number.errors?.WronNumber">This doesn't look like number:(</div>
                                 </div>
                 </div>
+                
             </div>
+
             <div class="form-group row">
+                
                     <div class="col-sm-4">
+                            <label>Blood type</label><br>
+                            <select class="for-control" #selectedCategory (click)="getSelected(selectedCategory.value)">
+                                    <option  *ngFor="let b of blood_types" [value]="b">{{b}}</option>
+                            </select>
+                           
+                            
+                    </div>
+                </div>
+           
+            <div class="form-group row">
+                    <div class="col-sm-12">
                             <label >Please point to your adress</label>
-                            <div id="googleMap" style="width:500px;height:380px;"></div>
+                            <div id="googleMap" style="width:400px;height:380px;"></div>
                     </div>
             </div>
+
+            <div class="form-group row">
+                
+                    <div class="col-sm-4">
+                            <label>
+                                    <input type="checkbox" formControlName="gprd"  (change)="onCheckChange($event)">
+                                    GRPD allow
+                                  </label>
+                    </div>
+                </div>
             <div class="form-group row">
                     <div class="col-sm-12">
                 <button [disabled]="loading" class="btn btn-primary">Register</button>

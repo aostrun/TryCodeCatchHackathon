@@ -18,8 +18,10 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';;
 import { EventComponent } from './event/event.component'
-import { EventService } from './_services/event.service';
-
+import { EventService } from './_services/event.service';;
+import { CommentComponent } from './comment/comment.component'
+;
+import { HomeBodyComponent } from './home-body/home-body.component'
 @NgModule({
     imports: [
         BrowserModule,
@@ -37,7 +39,9 @@ import { EventService } from './_services/event.service';
         LoginComponent,
         RegisterComponent
 ,
-        EventComponent    ],
+        EventComponent ,
+        CommentComponent ,
+        HomeBodyComponent  ],
     providers: [
         AuthGuard,
         AlertService,

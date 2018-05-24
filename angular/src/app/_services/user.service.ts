@@ -10,8 +10,8 @@ export class UserService {
         return this.http.get<User[]>('/api/users');
     }
 
-    getId() {
-        return this.http.get(apiUrl+'/api/user/user_id/');
+    getDetails() {
+        return this.http.get<User>(apiUrl+'/api/user/user_details/');
     }
 
     create(user: User) {
@@ -19,7 +19,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put('/api/users/' + user.id, user);
+        return this.http.put('/api/users/' + user.user_id, user);
     }
 
     delete(id: number) {

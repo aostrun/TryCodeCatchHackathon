@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     this.alertService.error("Please check your username/password");
+                    this.loginForm.reset();
                     this.loading = false;
                 });
     }
