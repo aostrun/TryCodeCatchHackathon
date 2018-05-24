@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, apiUrl,Event, BloodType } from '../_models';
+import { User, apiUrl,Event, BloodType ,Storage} from '../_models';
 
 @Injectable()
 export class EventService {
@@ -14,8 +14,8 @@ export class EventService {
       return this.http.get<Event[]>(apiUrl+'/api/blood_collection/add/');
   }
   
-  getAllStorages(id) {
-    return this.http.get<Event[]>(apiUrl+'/api/blood_storage/get_sample_status/'+id+'/');
+  getAllStorages() {
+    return this.http.get<Storage[]>(apiUrl+'/api/blood_storage/get_storages/');
 }
   getBloodInStorage(id){
     return this.http.get<BloodType>(apiUrl+'/api/blood_storage/get_sample_status/'+id+'/');
