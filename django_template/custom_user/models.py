@@ -41,3 +41,6 @@ class User(AbstractUser):
     #days_past = models.IntegerField(null=True)
 
     distance = models.FloatField(null=True)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name

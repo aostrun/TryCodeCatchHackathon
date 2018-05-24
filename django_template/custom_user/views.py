@@ -6,12 +6,23 @@ from custom_user.models import User
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def get_user_id(request):
+def get_user_details(request):
     """
     vraća sve blood collection eventove prema storageu
     :param request:
     :param storage:
     :return:
     """
+    user_details = {}
+
     user_id = request.user.id
-    return Response(user_id, status=status.HTTP_200_OK)
+    user_details["user_id"] = user_id
+    user = User.objects.get(pk = user_id)
+    print(user)
+    user_details["first_name"] = user.first_name
+    user_details["last_name"] = user.last_name
+    user_details["blood_type"] = user.blood_type
+    user_details["sex"] = user.sex
+
+    return Response(user_details, status=status.HTTP_200_OK)
+
