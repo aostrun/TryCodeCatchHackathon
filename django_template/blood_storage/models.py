@@ -32,8 +32,8 @@ class BloodTypeRange(models.Model):
 
     storage_id = models.ForeignKey(BloodStorage, on_delete=models.CASCADE)
 
-    min_value = models.FloatField(min_value=0.0)
-    max_value = models.FloatField(min_value=0.0)
+    min_value = models.FloatField(null=True)
+    max_value = models.FloatField(null=True)
 
 
 
