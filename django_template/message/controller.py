@@ -56,3 +56,18 @@ def get_user_unread_messages(request, message_to_user=None):
         messages = Message.objects.all().filter(message_to_user_id = message_to_user, is_read=False)
         serializer = MessageSerializer(messages, many=True, context={'request':request})
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def mark_message_as_read(request, message=None):
+    """
+    poruka.is_read postavlja na true
+    :param request:
+    :return:
+    """
+    if request.method == "GET":
+        message = Message.objects.get(pk=message)
+        message.is_read = True
+        message.save()
+        return Response(status=status.HTTP_200_OK)
