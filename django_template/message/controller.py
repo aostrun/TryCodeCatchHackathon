@@ -19,12 +19,6 @@ def post_user_message(request):
     :return:
     """
     if request.method == "POST":
-        # print(User.objects.get(username="admin").id)
-        # comment = Comment.objects.create(user_id_id= request.POST.get('user_id'),
-        #  comment_body=request.POST.get('comment_body'))
-        # comment.save()
-        # return Response(comment, status=status.HTTP_201_CREATED)
-        #
         serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

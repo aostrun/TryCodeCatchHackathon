@@ -7,10 +7,10 @@ from blood_storage.models import BloodStorage
 from blood_storage.serializers import BloodStorageSerializer
 
 
-
 """
 kontroler za blood storage
 """
+
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
@@ -41,4 +41,3 @@ def get_blood_storages(request):
         storages = BloodStorage.objects.all()
         serializer = BloodStorageSerializer(storages, many=True, context={'request':request})
         return Response(serializer.data, status=status.HTTP_200_OK)
-
