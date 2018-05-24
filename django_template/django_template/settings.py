@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'blood_storage',
     'blood_sample',
     'blood_collection',
+    'blood_shortage',
     'message',
     'corsheaders',
     'allauth',

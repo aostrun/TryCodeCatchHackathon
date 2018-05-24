@@ -1,5 +1,5 @@
 from django.db import models
-from blood_storage.models import BloodStorage, BloodStorageItem
+from blood_storage.models import BloodStorage
 
 # Create your models here.
 

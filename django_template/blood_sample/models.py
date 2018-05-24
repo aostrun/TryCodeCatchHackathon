@@ -1,5 +1,6 @@
 from django.db import models
 from custom_user.models import User
+
 from blood_collection.models import BloodCollection
 
 
