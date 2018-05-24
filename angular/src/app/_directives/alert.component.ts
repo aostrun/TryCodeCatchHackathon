@@ -47,8 +47,6 @@ export class AlertComponent implements OnInit, OnDestroy {
         this.typed = new Typed("#alert_text", {
           strings: strings,
           typeSpeed: 40,
-          loop: true,
-          backSpeed: 80,
           showCursor: false
         });
     }

@@ -10,49 +10,37 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Krv je život</a>
+          <a class="navbar-brand" (click)="toggle(false)">Krv je život</a>
+          
         </div>
     
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                        <li class="dropdown"><a (click)="toggle(true)"  class="btn btn-link">Leave comment</a></li>
+             </ul>
           <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+                <li class="dropdown"><a [routerLink]="['/login']" (click)="logout()" class="btn btn-link">Logout</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notification (<b>{{message_length}}</b>)</a>
               <ul class="dropdown-menu notify-drop">
-                <div class="notify-drop-title">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-6">Notifications (<b>{{message_length}}</b>)</div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-right"><a href="" class="rIcon allRead" data-tooltip="tooltip" data-placement="bottom" title="tümü okundu."><i class="fa fa-dot-circle-o"></i></a></div>
-                    </div>
-                </div>
                 <!-- end notify title -->
                 <!-- notify content -->
                 <div class="drop-content">
                     <li *ngFor="let m of messages">
                         <div class="col-md-3 col-sm-3 col-xs-3"><div class="notify-img"><img src="http://placehold.it/45x45" alt=""></div></div>
-                        <div class="col-md-9 col-sm-9 col-xs-9 pd-l0">{{m.message_from_user}},{{m.message_body}} <a href="" class="rIcon"><i class="fa fa-dot-circle-o"></i></a>
+                        <div class="col-md-9 col-sm-9 col-xs-9 pd-l0">{{m.message_from_user}},{{m.message_body}} <a (click) = "markAsRead(m.id)" class="rIcon"><i class="fa fa-dot-circle-o"></i></a>
                         
                         <hr>
                         </div>
                     </li>
+                    <li *ngIf="message_length==0"><div class="col-md-9 col-sm-9 col-xs-9 pd-l0"> No new notifications</div></li>
                 </div>
                 <div class="notify-drop-footer text-center">
-                    <a href=""><i class="fa fa-eye"></i>{{userId}}</a>
+                    <a href=""><i class="fa fa-eye"></i></a>
                 </div>
               </ul>
             </li>
@@ -62,68 +50,12 @@
     </nav>
         </div>
 </div>
+<div *ngIf="active;else other_content">
+<app-comment  *ngIf="currentUser" [currentUser] = "currentUser"> </app-comment>
+</div>
+<ng-template #other_content><app-home-body  *ngIf="currentUser" [currentUser] = "currentUser" [storages]="storages"></app-home-body></ng-template>
 
 
 
 
-<div class="home">
-    <div class="container">
-                <div class="row ">
-                    <div class="col">
-                            <p><span id="home_text"></span></p>
-                            <p><a [routerLink]="['/login']" (click)="logout()" class="btn btn-link">Logout</a></p>
-                            <!--<app-event></app-event> -->
-                    </div>
-                </div>
-             
-                <div *ngIf="storages">
-                    <p>Storages:</p>
-                    <ul *ngFor="let s of storages" class="list-group" style=" list-style-type: none;">
-                        <li><button class="btn btn-link" (click)="getBlood(s.id)" class="list-group-item"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">{{s.name}}</button></li>
-                    </ul>
-                </div>
-
-                <div class="collapse" id="collapseExample" *ngIf="blood">
-                        <div class="card card-body">
-                                <div >
-                                        <ul class="list-group">
-                                            <li class="list-group-item list-group-item-primary">"0-": {{blood["0-"]}}</li>
-                                            <li class="list-group-item list-group-item-secondary" style="background-color: lightblue">"0+":{{blood["0+"]}}</li>
-                                            <li class="list-group-item list-group-item-success">"A-":{{blood["A-"]}}</li>
-                                            <li class="list-group-item list-group-item-danger">"A+":{{blood["A+"]}}</li>
-                                            <li class="list-group-item list-group-item-warning">"B-":{{blood["B-"]}}</li>
-                                            <li class="list-group-item list-group-item-info">"B+":{{blood["B+"]}}</li>
-                                            <li class="list-group-item list-group-item-light" style="background-color: lightyellow">"AB-":{{blood["AB-"]}}</li>
-                                            <li class="list-group-item list-group-item-dark" style="background-color: lightgray">"AB+":{{blood["AB+"]}}</li>
-                                        </ul>
-                        </div>
-                </div>
-
-                
-
-                </div>
     
-                    <div class="card" style="width: 15rem">
-                            <qr-code [value]="'userId'" [size]="200"></qr-code>
-                            <div class="card-body">
-                            <h5 class="card-title" style="color:black">Your QR code</h5>
-                    </div>
-                    
-        
-        
-               
-                                
-                                
-                                
-    <!--
-    <h3>All registered users:</h3>
-    <ul>
-        <li *ngFor="let user of users">
-            {{user.username}} ({{user.firstName}} {{user.lastName}})
-            - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-        </li>
-    </ul>
--->
-   
-</div>
-</div>

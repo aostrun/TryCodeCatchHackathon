@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User, Event,BloodType,Storage ,Message} from '../_models';
+import { User, Event,BloodType,Storage ,Message, BLOOD_TYPES} from '../_models';
 import { UserService, AuthenticationService} from '../_services';
 import { EventService } from '../_services/event.service';
 
@@ -21,24 +21,31 @@ export class HomeComponent implements OnInit {
     userId:any;
     messages: Message[] =[];
     message_length = 0;
+    active:boolean = false;
+
     constructor(private userService: UserService,private authenticationService: AuthenticationService,private eventService: EventService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+       
     }
 
     ngOnInit() {
         
-        var options = {
-            strings: ["Dobrodošao, ime  i prezime"],
-            typeSpeed: 40
-          }
-          
-        var typed = new Typed("#home_text", options);
-        
         //this.loadAllUsers();
         //this.loadAllEvents();
-        this.loadUserId();
+        this.loadUserDetails();
         this.loadAllStorages();
         //this.loadMessages();
+
+       
+        
+        
+        
+        
+    }
+
+    toggle(bool){
+        this.active = bool;
+        console.log(this.active);
     }
 
     deleteUser(id: number) {
@@ -47,9 +54,9 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    loadUserId() {
-        this.userService.getId().pipe(first()).subscribe(id => { 
-            this.userId = id;
+    loadUserDetails() {
+        this.userService.getDetails().pipe(first()).subscribe(user => { 
+            this.currentUser = user;
             this.loadMessages();
         });
     }
@@ -62,7 +69,7 @@ export class HomeComponent implements OnInit {
     }
 
     private loadMessages() {
-        this.eventService.getAllMessages(this.userId).pipe(first()).subscribe(messages => { 
+        this.eventService.getAllMessages(this.currentUser.user_id).pipe(first()).subscribe(messages => { 
             this.messages = messages; 
             messages.forEach(element => {
                 if(element.is_read == 0){
@@ -71,6 +78,8 @@ export class HomeComponent implements OnInit {
             });
         });
     }
+
+   
 
 
     private loadAllEvents() {
@@ -82,15 +91,18 @@ export class HomeComponent implements OnInit {
     private loadAllStorages() {
         this.eventService.getAllStorages().pipe(first()).subscribe(storages => { 
             this.storages = storages; 
-        });
-    }
-
-    getBlood(id){
-        this.eventService.getBloodInStorage(id).pipe(first()).subscribe(blood => { 
-            this.blood = blood; 
             
         });
     }
+
+    markAsRead(id){
+        this.eventService.deleteMessage(id).pipe(first()).subscribe(() => { 
+            this.messages= this.messages.filter(obj => obj.id !== id);
+            this.message_length--;
+
+        });
+    }
+    
 
     logout(){
         this.authenticationService.logout().pipe(first()).subscribe(() => {

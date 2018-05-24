@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row ">
+        <div class="col">
+                <p><span id="home_text"></span></p>
+              
+        </div>
+    </div>
+ 
+    <div *ngIf="storages">
+        <p>Storages:</p>
+        <ul *ngFor="let s of storages" class="list-group" style=" list-style-type: none;">
+            <li><button class="btn btn-link" (click)="getBlood(s.id)" class="list-group-item"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">{{s.name}}</button></li>
+        </ul>
+    </div>
+
+    <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                    <div >
+                           <div id="piechart"></div>
+            </div>
+    </div>
+
+    
+
+    </div>
+
+        <div class="card" style="width: 15rem" style="margin-top: 10px;">
+                <qr-code [value]="'currentUser.user_id'" [size]="200"></qr-code>
+                <div class="card-body">
+                <h5 class="card-title" style="color:black">Your QR code</h5>
+        </div>
+                            
+                    
+                    
+<!--
+<h3>All registered users:</h3>
+<ul>
+<li *ngFor="let user of users">
+{{user.username}} ({{user.firstName}} {{user.lastName}})
+- <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
+</li>
+</ul>
+-->
+
+</div>

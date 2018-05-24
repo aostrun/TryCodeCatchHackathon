@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService, UserService } from '../_services';
+import { BLOOD_TYPES} from '../_models/index';
 import * as Typed from "typed.js"
 
 declare const google: any;
@@ -16,6 +17,9 @@ export class RegisterComponent implements OnInit {
     typed: any;
     lat: any;
     long: any;
+    gdpr_checked: boolean = false;
+    blood_types = BLOOD_TYPES;
+    selected_blood_type = '0-';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -62,7 +66,7 @@ export class RegisterComponent implements OnInit {
           }
 
         this.makeMessage("Join us");
-          /*
+        
         this.registerForm = this.formBuilder.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -75,11 +79,13 @@ export class RegisterComponent implements OnInit {
             sex: ['', Validators.required],
             location_lat: [''],
             location_lon: [''],
-            blood_type:['']
+            blood_type:[''],
+            gprd:[''],
         },{
             validator: [PasswordValidation.MatchPassword,NumberValidation.Number] //confirm password same as password
         });
-        */
+        
+       /*
         this.registerForm = this.formBuilder.group({
             first_name: ['', ],
             last_name: ['', ],
@@ -94,6 +100,7 @@ export class RegisterComponent implements OnInit {
             location_lon: [''],
             blood_type:['']
         });
+        */
     }
 
     // convenience getter for easy access to form fields
@@ -102,8 +109,12 @@ export class RegisterComponent implements OnInit {
 
 
     onSubmit() {
+        if(this.gdpr_checked == false){
+            alert("Please accept GDPR");
+            return;
+        }
+
         this.submitted = true;
-        console.log(this.lat);
         this.registerForm.value.location_lat = this.lat;
         this.registerForm.value.location_lon = this.long;
 
@@ -149,6 +160,17 @@ export class RegisterComponent implements OnInit {
         });
     }
 
+    onCheckChange(event){
+        if(event.target.checked){
+            this.gdpr_checked = true;
+        }else{
+            this.gdpr_checked = false;
+        }
+    }
+
+    getSelected(value){
+       this.selected_blood_type = value;
+    }
 
 
 

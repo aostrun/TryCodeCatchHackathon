@@ -1,0 +1,19 @@
+<alert></alert>
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()"  >
+
+    <div class="form-group row" >
+        <div class="col">
+            <label for="comment_body">Comment</label>
+            <textarea cols="30" rows="10" formControlName="comment_body" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.comment_body.errors }"></textarea>
+            <div *ngIf="submitted && f.comment_body.errors" class="invalid-feedback">
+                <div *ngIf="f.comment_body.errors.required">Body is required</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col">
+            <button [disabled]="loading" class="btn btn-primary" >Leave comment</button>
+        </div>
+    </div>
+</form>

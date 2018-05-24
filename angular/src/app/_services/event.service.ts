@@ -15,7 +15,11 @@ export class EventService {
   }
 
   getAllMessages(id) {
-    return this.http.get<Message[]>(apiUrl+'/api/message/get/'+id);
+    return this.http.get<Message[]>(apiUrl+'/api/message/get_unread/'+id);
+}
+
+deleteMessage(id) {
+  return this.http.get<Message>(apiUrl+'/api/message/mark_as_read/'+id);
 }
   
   getAllStorages() {
