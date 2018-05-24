@@ -4,5 +4,5 @@ from blood_collection.controller import post_blood_collection, get_blood_collect
 urlpatterns = [
     url(r'^add/$', post_blood_collection),
     url(r'^get_storage/(?P<storage>\w+)$', get_blood_collection_storage),
-    url(r'^get_valid/(?P<year>\w+)/(?P<month>\w+)/(?P<day>\w+)/$', get_valid_blood_collections)
+    url(r'^get_valid/$', get_valid_blood_collections)
 ]

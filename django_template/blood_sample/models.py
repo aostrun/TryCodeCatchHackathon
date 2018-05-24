@@ -14,7 +14,7 @@ class BloodSample(models.Model):
 
     event = models.ForeignKey(BloodCollection, on_delete=models.DO_NOTHING)
 
-    date_collected = models.DateTimeField()
+    date_collected = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.user.username + ": " + self.event.name + ": " + str(self.volume)
