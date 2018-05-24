@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.fields import DateField
 from rest_framework.views import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -7,7 +8,6 @@ from blood_collection.models import BloodCollection
 from blood_collection.serializers import BloodCollectionSerializer
 from datetime import datetime as dt
 import datetime
-from django_filters import DateRangeFilter,DateFilter
 
 """
 kontroler za darivanja krvi
@@ -45,8 +45,8 @@ def get_blood_collection_storage(request, storage=None):
 
 
 @api_view(['GET'])
-@permission_classes((IsAuthenticated,))
-def get_valid_blood_collections(request, year=None, month=None, day=None):
+@permission_classes((AllowAny,))
+def get_valid_blood_collections(request):
     """
     vraća sve blood collection eventove poslije zadanog pocetnog vremena
     :param request:
@@ -54,10 +54,9 @@ def get_valid_blood_collections(request, year=None, month=None, day=None):
     :return:
     """
     if request.method == "GET":
-        input_date = year+"-"+month+"-"+day+" 00:00"
-        print(input_date)
-        from_date = dt.strptime(input_date, '%Y-%m-%d %h:%m').date()
+        requested_date = datetime.date.today()
+        #requested_date = DateField(year=year, month=month, day=day)
         # https://stackoverflow.com/questions/30366564/daterange-on-a-django-filter
-        messages = BloodCollection.objects.all().filter()
+        messages = BloodCollection.objects.all().filter(end_time__gt=requested_date)
         serializer = BloodCollectionSerializer(messages, many=True, context={'request':request})
         return Response(serializer.data, status=status.HTTP_200_OK)
