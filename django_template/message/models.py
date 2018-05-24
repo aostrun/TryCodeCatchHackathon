@@ -18,6 +18,7 @@ class Message(models.Model):
     is_read = models.BooleanField()
 
     def __str__(self):
-        return "message from:" + str(self.message_from_user.id) + " to: " + str(self.message_to_user.id) + ". Message:" +self.message_body
+        return "message from:" + str(self.message_from_user.id) + " to: " \
+               + str(self.message_to_user.id) + ". Message:" +self.message_body + " is read: " +str(self.is_read)
 
 
