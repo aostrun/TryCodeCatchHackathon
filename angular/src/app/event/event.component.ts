@@ -95,15 +95,7 @@ export class EventComponent implements OnInit {
        }
        
 
-       this.eventService.create(this.eventForm.value)
-           .pipe(first())
-           .subscribe(
-               data => {
-                   console.log("created");
-               },
-               error => {
-                   alert("error");
-               });
+       
    }
 
 }

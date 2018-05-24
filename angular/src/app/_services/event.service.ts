@@ -6,12 +6,8 @@ import { User, apiUrl,Event, BloodType ,Storage,Message} from '../_models';
 export class EventService {
     constructor(private http: HttpClient) { }
 
-    create(event: Event) {
-        return this.http.post(apiUrl+'/api/blood_collection/add/',event);
-    }
-
     getAll() {
-      return this.http.get<Event[]>(apiUrl+'/api/blood_collection/add/');
+      return this.http.get<Event[]>(apiUrl+'/api/blood_collection/get_valid/');
   }
 
   getAllMessages(id) {
@@ -20,6 +16,10 @@ export class EventService {
 
 deleteMessage(id) {
   return this.http.get<Message>(apiUrl+'/api/message/mark_as_read/'+id);
+}
+
+sendMessage(msg){
+  return this.http.post(apiUrl+'/api/message/add/',msg);
 }
   
   getAllStorages() {

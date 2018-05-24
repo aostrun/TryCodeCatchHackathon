@@ -24,6 +24,10 @@ export class CommentComponent implements OnInit {
   });
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.commentForm.controls; }
+
+
   onSubmit() {
     this.commentForm.value.user_id = this.currentUser.user_id;
     console.log(this.commentForm.value);

@@ -60,4 +60,5 @@ import { HomeBodyComponent } from './home-body/home-body.component'
     bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule {
+ }

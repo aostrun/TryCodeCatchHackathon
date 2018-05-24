@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     long: any;
     gdpr_checked: boolean = false;
     blood_types = BLOOD_TYPES;
-    selected_blood_type = '0-';
+    selected_blood_type = '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -112,6 +112,10 @@ export class RegisterComponent implements OnInit {
         if(this.gdpr_checked == false){
             alert("Please accept GDPR");
             return;
+        }
+
+        if(this.selected_blood_type == ''){
+            alert("You didnt't choose bloody type, but you can add it later");
         }
 
         this.submitted = true;

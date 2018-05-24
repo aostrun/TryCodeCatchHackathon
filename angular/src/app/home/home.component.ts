@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
     messages: Message[] =[];
     message_length = 0;
     active:boolean = false;
+    currentMessage:Message;
+    respond: string = "";
 
     constructor(private userService: UserService,private authenticationService: AuthenticationService,private eventService: EventService) {
         //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -30,10 +32,14 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         
+        
+      
+
         //this.loadAllUsers();
-        //this.loadAllEvents();
+        
         this.loadUserDetails();
-        this.loadAllStorages();
+
+ 
         //this.loadMessages();
 
        
@@ -57,6 +63,14 @@ export class HomeComponent implements OnInit {
     loadUserDetails() {
         this.userService.getDetails().pipe(first()).subscribe(user => { 
             this.currentUser = user;
+            var options = {
+            strings: ["Welcome, "+this.currentUser.first_name],
+            typeSpeed: 40,
+            showCursor: false
+          }
+          
+          var typed = new Typed("#home_text", options);
+      
             this.loadMessages();
         });
     }
@@ -82,17 +96,18 @@ export class HomeComponent implements OnInit {
    
 
 
-    private loadAllEvents() {
-        this.eventService.getAll().pipe(first()).subscribe(events => { 
-            this.events = events; 
-        });
-    }
-
-    private loadAllStorages() {
-        this.eventService.getAllStorages().pipe(first()).subscribe(storages => { 
-            this.storages = storages; 
+    respondM(){
+        
+        this.eventService.sendMessage({message_from: this.currentMessage.message_to, message_to: this.currentMessage.message_from, message_body: this.respond, is_read: false}).pipe(first()).subscribe(() =>{
+            console.log("sent");
             
         });
+        this.markAsRead(this.currentMessage.id);
+
+    }
+
+    setMessage(m){
+        this.currentMessage = m;
     }
 
     markAsRead(id){

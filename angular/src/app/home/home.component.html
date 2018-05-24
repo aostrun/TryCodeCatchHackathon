@@ -1,8 +1,8 @@
-﻿<div class="container">
+﻿
+<div class="container container-full">
         <div class="row">
             <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -13,8 +13,11 @@
           <a class="navbar-brand" (click)="toggle(false)">Krv je život</a>
           
         </div>
+
+        
+
     
-        <!-- Collect the nav links, forms, and other content for toggling -->
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                         <li class="dropdown"><a (click)="toggle(true)"  class="btn btn-link">Leave comment</a></li>
@@ -22,17 +25,16 @@
           <ul class="nav navbar-nav">
                 <li class="dropdown"><a [routerLink]="['/login']" (click)="logout()" class="btn btn-link">Logout</a></li>
           </ul>
-
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right align-baseline">
+              <li class="dropdown align-middle" id="home_text" style="margin-bottom:0px;margin-top:14px;margin-left:3px"></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notification (<b>{{message_length}}</b>)</a>
               <ul class="dropdown-menu notify-drop">
-                <!-- end notify title -->
-                <!-- notify content -->
+ 
                 <div class="drop-content">
                     <li *ngFor="let m of messages">
                         <div class="col-md-3 col-sm-3 col-xs-3"><div class="notify-img"><img src="http://placehold.it/45x45" alt=""></div></div>
-                        <div class="col-md-9 col-sm-9 col-xs-9 pd-l0">{{m.message_from_user}},{{m.message_body}} <a (click) = "markAsRead(m.id)" class="rIcon"><i class="fa fa-dot-circle-o"></i></a>
+                        <div class="col-md-9 col-sm-9 col-xs-9 pd-l0">{{m.message_from.first_name}} {{m.message_from.last_name}},{{m.message_body}} <a data-toggle="modal" (click)="setMessage(m)" data-target="#exampleModal" class="rIcon"><i class="fa fa-dot-circle-o"></i></a>
                         
                         <hr>
                         </div>
@@ -45,17 +47,37 @@
               </ul>
             </li>
           </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+        </div>
+      </div>
     </nav>
         </div>
+<div class="container container-full">
 </div>
 <div *ngIf="active;else other_content">
 <app-comment  *ngIf="currentUser" [currentUser] = "currentUser"> </app-comment>
 </div>
-<ng-template #other_content><app-home-body  *ngIf="currentUser" [currentUser] = "currentUser" [storages]="storages"></app-home-body></ng-template>
+<ng-template #other_content><app-home-body  *ngIf="currentUser" [currentUser] = "currentUser" ></app-home-body></ng-template>
+</div>
 
-
-
-
-    
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="currentMessage" id="exampleModalLabel">Message from: {{currentMessage.message_from.first_name}} {{currentMessage.message_from.last_name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="currentMessage">
+          {{currentMessage.message_body}}
+          <hr>
+          <textarea rows="4" cols="50" [value]="respond" (input)="respond = $event.target.value"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="respondM()">Respond</button>
+        </div>
+      </div>
+    </div>
+  </div>

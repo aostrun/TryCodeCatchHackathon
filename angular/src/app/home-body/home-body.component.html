@@ -1,35 +1,96 @@
+<alert></alert>
 <div class="container">
-    <div class="row ">
-        <div class="col">
-                <p><span id="home_text"></span></p>
-              
+
+
+        <div class="container">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div *ngIf="storages">
+                        <p><span>Storages:</span></p>
+                        <ul *ngFor="let s of storages" class="list-group" style=" list-style-type: none;">
+                            <li><button class="btn btn-link" style="width:100%" (click)="getBlood(s.id)" class="list-group-item"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">{{s.name}}</button></li>
+                        </ul>
+                    </div>
+                
+                
+                
+                    <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                    <div >
+                                           <div style="width:100%" id="piechart"></div>
+                            </div>
+                    </div>
+                
+                    </div>
+                
+                  </div>
+                  <div class="col-sm-6">
+                        <div *ngIf="events">
+                                <p><span>Active events:</span></p>
+                                <ul *ngFor="let e of events" class="list-group" style=" list-style-type: none;">
+                                    <li><button class="btn btn-link" style="width:100%" class="list-group-item " [ngClass]="active == e ? 'active': ''" (click)="setMarker(e)">Name: {{e.name}}<br>Start time: {{e.start_time}}<br>End time: {{e.end_time}}</button></li>
+                                    
+                                </ul>
+                               
+                            </div>
+                           
+                  </div>
+
+                </div>
+                <div class="row">
+                        <div class="col col-12">
+                                <div class="card" style="margin-top: 50px;">
+                                                <div class="card-body">
+                                                                <div id="googleMap" style="width:100%;height:500px;margin: 10px;" ></div>
+                                                </div>
+                                </div>
+                                
+                                        
+                        </div>
+                </div>
+                <div class="row">
+                                <div class="col-sm-4" >
+
+                                        
+                                          </div>
+                                <div class="col-sm-4" >
+
+                                                <div class="card"  style="margin-top: 10px;">
+                                                <h5 class="card-header">
+                                                               Your QR code
+                                                </h5>
+                                                <div class="card-body">
+                                               
+                                                        <qr-code [value]="'currentUser.user_id'" [size]="200"></qr-code>
+                                       
+                                                  </div>
+                                          </div>
+                                          <div class="col-sm-4" >
+
+                                        
+                                                </div>
+                </div>
+            
+        
+    <div class="card"  style="margin-top: 10px;" *ngIf="currentUser.blood_type == ''">
+        
+        <div class="card-body">
+        <h4 class="card-title" style="color: red">You should add your blood type!</h4>
+        <div class="form-group row">
+            
+            <div class="col-sm-4">
+                    <select class="for-control" #selectedCategory (click)="getSelected(selectedCategory.value)">
+                            <option  *ngFor="let b of blood_types" [value]="b">{{b}}</option>
+                    </select>
+                   <button  class="btn btn-link" (click) = "updateBlood()">Update blood type</button>
+                    
+            </div>
+        </div>
         </div>
     </div>
  
-    <div *ngIf="storages">
-        <p>Storages:</p>
-        <ul *ngFor="let s of storages" class="list-group" style=" list-style-type: none;">
-            <li><button class="btn btn-link" (click)="getBlood(s.id)" class="list-group-item"  type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">{{s.name}}</button></li>
-        </ul>
-    </div>
-
-    <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                    <div >
-                           <div id="piechart"></div>
-            </div>
-    </div>
-
-    
-
-    </div>
-
-        <div class="card" style="width: 15rem" style="margin-top: 10px;">
-                <qr-code [value]="'currentUser.user_id'" [size]="200"></qr-code>
-                <div class="card-body">
-                <h5 class="card-title" style="color:black">Your QR code</h5>
-        </div>
-                            
+   
+  
                     
                     
 <!--
@@ -43,3 +104,6 @@
 -->
 
 </div>
+
+
+

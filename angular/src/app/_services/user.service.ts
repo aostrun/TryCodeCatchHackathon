@@ -18,8 +18,8 @@ export class UserService {
         return this.http.post(apiUrl+'/rest-auth/register/', user);
     }
 
-    update(user: User) {
-        return this.http.put('/api/users/' + user.user_id, user);
+    update(blood_type) {
+        return this.http.post(apiUrl+'/api/user/change_blood_type/', blood_type);
     }
 
     delete(id: number) {
