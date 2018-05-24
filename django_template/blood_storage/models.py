@@ -4,7 +4,6 @@ from django.db import models
 
 
 
-
 class BloodStorage(models.Model):
 
     name = models.CharField(max_length=50)
@@ -14,6 +13,29 @@ class BloodStorage(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class BloodTypeRange(models.Model):
+
+    BLOOD_TYPE_CHOICES = (
+        ("0-", "0-"),
+        ("0+", "0+"),
+        ("A-", "A-"),
+        ("A+", "A+"),
+        ("B-", "B-"),
+        ("B+", "B+"),
+        ("AB-", "AB-"),
+        ("AB+", "AB+")
+        # ---
+    )
+    blood_type = models.CharField(max_length=3, choices=BLOOD_TYPE_CHOICES, null=True)
+
+    storage_id = models.ForeignKey(BloodStorage, on_delete=models.CASCADE)
+
+    min_value = models.FloatField(min_value=0.0)
+    max_value = models.FloatField(min_value=0.0)
+
+
 
 
 

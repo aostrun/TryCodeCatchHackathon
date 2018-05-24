@@ -6,15 +6,17 @@ from blood_storage.models import BloodStorage
 from blood_sample.models import BloodSample
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 
 
 @api_view(['GET',])
+@permission_classes((AllowAny,))
 def get_storage_sample_size(request, storage_id):
     storage_samples = BloodSample.objects.all().filter(event__storage_id=storage_id)
-    current_datetime = datetime.datetime.today()
-    current_datetime.month -= 1
+    #current_datetime = datetime.datetime.today()
+    current_datetime = datetime.datetime.today() - datetime.timedelta(days=30)
 
     volume_by_type = {
 
