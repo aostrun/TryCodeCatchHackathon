@@ -1,5 +1,5 @@
 from django.db import models
-from blood_sample.models import BloodSample
+#from blood_sample.models import BloodSample
 import datetime
 
 # Create your models here.
@@ -18,28 +18,31 @@ class BloodStorage(models.Model):
 
 
     def get_blood_volume(self, blood_type):
-        storage_samples = BloodSample.objects.all().filter(event__storage_id=self.id)
-        # current_datetime = datetime.datetime.today()
-        current_datetime = datetime.datetime.today() - datetime.timedelta(days=30)
+        storage_collections = self.bloodcollection_set
 
-        volume_by_type = {
+        for collection in storage_collections:
+            storage_samples = collection.bloodsample_set
+            # current_datetime = datetime.datetime.today()
+            current_datetime = datetime.datetime.today() - datetime.timedelta(days=30)
 
-            "0-": 0,
-            "0+": 0,
-            "A-": 0,
-            "A+": 0,
-            "B-": 0,
-            "B+": 0,
-            "AB-": 0,
-            "AB+": 0
+            volume_by_type = {
 
-        }
+                "0-": 0,
+                "0+": 0,
+                "A-": 0,
+                "A+": 0,
+                "B-": 0,
+                "B+": 0,
+                "AB-": 0,
+                "AB+": 0
 
-        storage_samples.filter(date_collected__gte=current_datetime)
-        for sample in storage_samples:
-            volume_by_type[sample.user.blood_type] += sample.volume
+            }
 
-        return volume_by_type[blood_type]
+            storage_samples.filter(date_collected__gte=current_datetime)
+            for sample in storage_samples:
+                volume_by_type[sample.user.blood_type] += sample.volume
+
+            return volume_by_type[blood_type]
 
 class BloodTypeRange(models.Model):
 
